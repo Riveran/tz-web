@@ -1,0 +1,70 @@
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import axios from 'axios'
+
+export class LoginForm extends Component {
+  static propTypes = {}
+
+  state = {
+    login: '',
+    password: '',
+    openLog: false
+  }
+
+  handleChange = e => {
+    const { id } = e.currentTarget
+    this.setState({
+      [id]: e.currentTarget.value
+    })
+  }
+
+  handleClick = async e => {
+    e.preventDefault()
+    this.setState({
+      openLog: !this.state.openLog
+    })
+    const zero = await axios.post(
+      'https://mysterious-reef-29460.herokuapp.com/api/v1/validate',
+      {
+        email: 'max@test.com',
+        password: '12345'
+      }
+    )
+    console.log(zero)
+  }
+
+  render () {
+    if (this.state.openLog) {
+      return (
+        <button className='form_btn' onClick={this.handleClick}>
+          Out login
+        </button>
+      )
+    }
+    return (
+      <form className='form-wrapper'>
+        <div className='form_item'>
+          <input
+            id='login'
+            placeholder='login'
+            value={this.state.login}
+            onChange={this.handleChange}
+          />
+        </div>
+        <div className='form_item'>
+          <input
+            id='password'
+            placeholder='password'
+            value={this.state.password}
+            onChange={this.handleChange}
+          />
+        </div>
+        <button className='form_btn' onClick={this.handleClick}>
+          Submit
+        </button>
+      </form>
+    )
+  }
+}
+
+export default LoginForm
