@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import axios from 'axios'
+import { connect } from 'react-redux'
+import { login } from './../../action/index'
 
 export class LoginForm extends Component {
   static propTypes = {}
 
   state = {
-    login: '',
+    email: '',
     password: '',
     openLog: false
   }
@@ -18,9 +19,10 @@ export class LoginForm extends Component {
     })
   }
 
-  handleClick = async e => {
+  handleClick = e => {
     e.preventDefault()
-    this.setState({
+
+    /* this.setState({
       openLog: !this.state.openLog
     })
     const zero = await axios.post(
@@ -30,7 +32,15 @@ export class LoginForm extends Component {
         password: '12345'
       }
     )
-    console.log(zero)
+    console.log(zero) */
+    const { email, password } = this.state
+    this.props.login(email, password)
+  }
+
+  handleError = () => {
+    if (this.props.data.loginStatus === 'err') {
+      return 'неверный логин или пароль \n'
+    }
   }
 
   render () {
@@ -45,9 +55,9 @@ export class LoginForm extends Component {
       <form className='form-wrapper'>
         <div className='form_item'>
           <input
-            id='login'
-            placeholder='login'
-            value={this.state.login}
+            id='email'
+            placeholder='email'
+            value={this.state.email}
             onChange={this.handleChange}
           />
         </div>
@@ -59,6 +69,7 @@ export class LoginForm extends Component {
             onChange={this.handleChange}
           />
         </div>
+        {this.handleError()}
         <button className='form_btn' onClick={this.handleClick}>
           Submit
         </button>
@@ -67,4 +78,15 @@ export class LoginForm extends Component {
   }
 }
 
-export default LoginForm
+const mapStateToProps = state => ({
+  data: state.data
+})
+
+const mapDispatchToProps = dispatch => ({
+  login: (email, password) => dispatch(login(email, password))
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginForm)

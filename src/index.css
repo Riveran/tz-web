@@ -6,6 +6,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url(http://minimalwallpaper.ru/images/__user__/images/760675.png),
+    none;
+  background-repeat: no-repeat, repeat;
+  background-color: #291d4f;
+  background-size: cover;
+  background-position: center;
 }
 
 code {
