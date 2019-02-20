@@ -5,7 +5,8 @@ export class Profile extends Component {
   static propTypes = {}
 
   render () {
-    return <div>Profile</div>
+    console.log('sdf', this.props)
+    return <div>Profisdasdle</div>
   }
 }
 

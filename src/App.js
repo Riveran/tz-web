@@ -3,7 +3,13 @@ import LoginForm from './components/LoginForm/LoginForm'
 import News from './components/News/News'
 import Profile from './components/Profile/Profile'
 import About from './components/About/About'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import PrivateRoute from './components/PrivateRoute/PrivateRoute'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect
+} from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
@@ -69,9 +75,9 @@ class App extends Component {
             </Li>
           </NavWrapper>
           <Route path='/' exact component={News} />
-          <Route path='/profile' component={Profile} />
           <Route path='/login' component={LoginForm} />
           <Route path='/about' component={About} />
+          <PrivateRoute path='/profile' component={Profile} />
         </Wrapper>
       </Router>
     )
