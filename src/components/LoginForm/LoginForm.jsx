@@ -51,6 +51,9 @@ export class LoginForm extends Component {
         </button>
       )
     }
+    if (this.props.data.loginStatus === 'ok') {
+      this.props.history.push('/profile')
+    }
     return (
       <form className='form-wrapper'>
         <div className='form_item'>

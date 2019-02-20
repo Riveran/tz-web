@@ -4,12 +4,7 @@ import News from './components/News/News'
 import Profile from './components/Profile/Profile'
 import About from './components/About/About'
 import PrivateRoute from './components/PrivateRoute/PrivateRoute'
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect
-} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
@@ -64,20 +59,17 @@ class App extends Component {
               </Link>
             </Li>
             <Li>
-              <Link className='link' to='/login'>
-                Login
-              </Link>
-            </Li>
-            <Li>
               <Link className='link' to='/about'>
                 About
               </Link>
             </Li>
           </NavWrapper>
-          <Route path='/' exact component={News} />
-          <Route path='/login' component={LoginForm} />
-          <Route path='/about' component={About} />
-          <PrivateRoute path='/profile' component={Profile} />
+          <Switch>
+            <Route path='/' exact component={News} />
+            <Route path='/login' component={LoginForm} />
+            <Route path='/about' component={About} />
+            <PrivateRoute path='/profile' component={Profile} />
+          </Switch>
         </Wrapper>
       </Router>
     )
